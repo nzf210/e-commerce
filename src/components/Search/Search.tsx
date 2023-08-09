@@ -15,7 +15,7 @@ import { client } from '@utils/sanity.client';
 import { groq } from 'next-sanity';
 import Link from 'next/link';
 import { useEffect, useRef, useState } from 'react';
-import { inputGroup } from './Style';
+import { dropDownStyle, inputGroup, searchStyle, wrapperContainerStyles } from './Style';
 
 const query: string = groq`
     *[_type == "product" && (name match $searchText || description match $searchText) ] {
@@ -67,18 +67,14 @@ export const Search = () => {
   }, [searchText]);
 
   return (
-    <Box pos="relative" w={{ base: '100%', lg: '32rem' }} ref={ref}>
+    <Box {...wrapperContainerStyles} ref={ref}>
       <InputGroup {...inputGroup}>
         <InputLeftElement
           pointerEvents="none"
           children={<SearchIcon color="gray.400" />}
         />
-        <Input
-          type="text"
-          placeholder="Search..."
-          focusBorderColor="brand.primaryLight"
-          borderWidth="1px"
-          borderColor="gray.400"
+
+        <Input {...searchStyle}
           value={searchText}
           onClick={() => setIsModalOpen(true)}
           onChange={(e) => setSearchText(e.target.value)}
@@ -86,16 +82,7 @@ export const Search = () => {
       </InputGroup>
 
       {isModalOpen && (
-        <Box
-          pos="absolute"
-          bg="white"
-          shadow="md"
-          padding="0.5rem"
-          w="100%"
-          boxSizing="border-box"
-          maxH="500px"
-          overflowY="auto"
-        >
+        <Box {...dropDownStyle}        >
           {products.length === 0 ? (
             isLoading ? (
               <>Loading...</>

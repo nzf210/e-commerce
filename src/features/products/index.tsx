@@ -12,7 +12,7 @@ interface AllProductsProps {
   breadcrumbItems?: IBreadcrumbItem[];
 }
 
-const itemsPerPage = 10;
+const itemsPerPage = 8;
 
 export const AllProducts = ({
   products,
